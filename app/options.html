@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+      <title>oh oh extension for chaturbate Options</title>
+    <!-- build:css styles/options-vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link href="styles/main.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body>
+      <table>
+        <thead>
+            <tr>
+                <td>Minimum Tip</td>
+                <td>Vibration sound (0-3)</td>
+                <td>Duration (s)</td>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td>
+                    <button id="addline">Add one ligne</button>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody id="tipConfig">
+
+        </tbody>
+    </table>
+    <div>
+    <label for ="randomLevelTip">Random level tip (when user tip this amount a level is choose randomly) : </label>
+    <input id="randomLevelTip" type='number' min='0' />
+    </div>
+    <p>To use the extension :
+        <ol>
+            <li>Begin to broadcast on chaturbate.</li>
+            <li>On chaturbate tab clik on the F icon in adress bar.</li>
+            <li>Wait for a tip and enjoy sound.</li>
+        </ol>
+    </p>
+
+    <div id="status"></div>
+    <button id="save">Save</button>
+
+
+    <!-- build:js scripts/options-vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/options.js -->
+    <script src="scripts/options.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

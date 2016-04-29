@@ -1,0 +1,32 @@
+{
+  "appName": {
+    "message": "cb2ohoh",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Get custom sound on tip for CB",
+    "description": "The description of the application"
+  },
+  "reactMessage": {
+    "message": "React to tip from $USER$ during $DURATION$ secondes",
+    "description": "Message when toy react to tip",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "grazy"
+      },
+      "duration": {
+        "content": "$2",
+        "example": "9"
+      }
+    }
+  },
+  "activateExtension": {
+    "message": "Application activated",
+    "description": "Message when extension activated"
+  },
+  "desactivateExtension": {
+    "message": "Application desactivated",
+    "description": "Message when extension desactivated"
+  }
+}
