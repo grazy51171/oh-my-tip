@@ -52,7 +52,7 @@ function restore_options() {
         [
             { tip: 1, action: { speed: 1, duration: 3 } },
             { tip: 10, action: { speed: 2, duration: 10 } },
-            { tip: 100, action: { speed: 3, duration: 30 } },
+            { tip: 30, action: { speed: 3, duration: 30 } },
         ],
         otherOptions: { randomLevelTip :0 }
     }, function (items) {

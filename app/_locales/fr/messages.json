@@ -1,0 +1,32 @@
+{
+  "appName": {
+    "message": "Oh my tip",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Sons personalisés pour les tips dans chaturbate.",
+    "description": "The description of the application"
+  },
+  "reactMessage": {
+    "message": "Réagi au tip de $USER$ pendant $DURATION$ secondes",
+    "description": "Message when toy react to tip",
+    "placeholders": {
+      "user": {
+        "content": "$1",
+        "example": "grazy"
+      },
+      "duration": {
+        "content": "$2",
+        "example": "9"
+      }
+    }
+  },
+  "activateExtension": {
+    "message": "Extension Oh my tip activé",
+    "description": "Message when extension activated"
+  },
+  "desactivateExtension": {
+    "message": "Extension Oh my tip desactivé",
+    "description": "Message when extension desactivated"
+  }
+}
