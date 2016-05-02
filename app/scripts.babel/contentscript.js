@@ -14,6 +14,10 @@
 
     if (tipconfigChange)
       tipConfig = tipconfigChange.newValue;
+    
+    var otherOptionschange = changes['otherOptions'];
+    if(otherOptionschange)
+      otherOptions = otherOptionschange.newValue;
   });
 
   chrome.storage.local.get(
@@ -113,7 +117,7 @@
   }, 500);
 
   chrome.runtime.onMessage.addListener(
-    function (request, sender) {
+    function (request) {
       if (request.action == 'ChangeState') {
         isStarted = !isStarted;
         chrome.runtime.sendMessage({ action: 'ChangeState', state: isStarted });

@@ -8,7 +8,7 @@
     "description": "The description of the application"
   },
   "reactMessage": {
-    "message": "React to tip from $USER$ during $DURATION$ secondes",
+    "message": "**** Oh my tip react to tip from $USER$ during $DURATION$ secondes",
     "description": "Message when toy react to tip",
     "placeholders": {
       "user": {
@@ -22,11 +22,11 @@
     }
   },
   "activateExtension": {
-    "message": "Application activated",
+    "message": "**** Oh my tip activated",
     "description": "Message when extension activated"
   },
   "desactivateExtension": {
-    "message": "Application desactivated",
+    "message": "**** Oh my tip desactivated",
     "description": "Message when extension desactivated"
   }
 }

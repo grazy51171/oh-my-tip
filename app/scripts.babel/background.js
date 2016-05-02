@@ -13,7 +13,7 @@ var audio = new Audio();
 chrome.runtime.onMessage.addListener(
   function (request, sender) {
     if (request.action == 'ChangeSpeed') {
-      changeSpeed(request.speed, request.user);
+      changeSpeed(request.speed);
       updateIcon(sender.tab.id, '' + request.speed, true);
     } else if (request.action == 'ChangeState') {
       updateIcon(sender.tab.id, '', request.state);
@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener(
 
 
 
-function changeSpeed(speed, user) {
+function changeSpeed(speed) {
   audio.pause();
   audio.currentTime = 0;
   if (speed != 0) {
