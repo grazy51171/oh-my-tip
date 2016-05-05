@@ -101,21 +101,19 @@
   }
 
   // Watch for tips.
-  setInterval(function () {
-    var tipMessages = $('.tipalert:gt(-5)');
+  function startWatchTip() {
+    $('.chat-list').observe('added','.tipalert', function () {
+      var elementtext = $(this).text();
+      var match = searchTipRegex.exec(elementtext);
+      tipsended(match[1], match[2]);
+    });
+  }
 
-    $.each(tipMessages,
-      function (index, element) {
-        var elementtext = $(element).text();
-        var match = searchTipRegex.exec(elementtext);
-        var isHandled = $(element).attr('gyIsHandled');
-        if (match && !isHandled) {
-          $(element).attr('gyIsHandled', '1');
-          tipsended(match[1], match[2]);
-        }
-      });
-  }, 500);
+  function stopWatchTip() {
+    $('.chat-list').disconnect();
+  }
 
+  
   chrome.runtime.onMessage.addListener(
     function (request) {
       if (request.action == 'ChangeState') {
@@ -123,6 +121,11 @@
         chrome.runtime.sendMessage({ action: 'ChangeState', state: isStarted });
 
         var messageKey = isStarted ? 'activateExtension' : 'desactivateExtension';
+        if(isStarted)
+          startWatchTip();
+        else
+          stopWatchTip();
+        
         var textMessage = chrome.i18n.getMessage(messageKey);
         sendMessage(textMessage);
       }

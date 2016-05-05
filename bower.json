@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "dependencies": {
-    "jquery": "^1.12.3"
+    "jquery": "^2.2.3",
+    "jquery-observe": "^2.0.2"
   },
   "devDependencies": {
     "chai": "^1.10.0",
