@@ -1,13 +1,16 @@
 'use strict';
 
-(function () {
+/* exported SoundTipper */
+
+var SoundTipper = function() {
 
   var timerHandleTip = 0;
   var tipQueue = [];
   var tipConfig = [];
   var otherOptions = {};
   var isStarted = false;
-
+  var ptrThis = this;
+ 
   //read configuration.
   chrome.storage.onChanged.addListener(function (changes) {
     var tipconfigChange = changes['tipConfig'];
@@ -68,7 +71,7 @@
       if (action.speed > 0) {
         changeSpeed(action.speed, message.user);
         var textMessage = chrome.i18n.getMessage('reactMessage', [message.user, action.duration]);
-        sendMessage(textMessage);
+        ptrThis.sendMessage(textMessage);
       }
       timerHandleTip = setTimeout(dequeuOneTip, action.duration * 1000);
     } else {
@@ -77,7 +80,7 @@
     }
   }
 
-  function tipsended(user, tokens) {
+  this.tipsended = function (user, tokens) {
     if (!isStarted)
       return;
     //        console.log("User "+user + " tip "+tokens);
@@ -87,49 +90,63 @@
       dequeuOneTip();
     }
     // 
-  }
+  };
 
-  var searchTipRegex = /(.*)\s+tipped\s+(\d+)\s+token/;
-
-  // send message to the chat.
-  function sendMessage(texte) {
-    var lines = texte.split('\n');
-    $.each(lines, function (index, line) {
-      var messageJSON = JSON.stringify({ 'm': line, 'c': '', 'f': '' });
-      $('#movie')[0].SendRoomMsg(messageJSON);
-    });
-  }
-
-  // Watch for tips.
-  function startWatchTip() {
-    $('.chat-list').observe('added','.tipalert', function () {
-      var elementtext = $(this).text();
-      var match = searchTipRegex.exec(elementtext);
-      tipsended(match[1], match[2]);
-    });
-  }
-
-  function stopWatchTip() {
-    $('.chat-list').disconnect();
-  }
 
   
   chrome.runtime.onMessage.addListener(
     function (request) {
       if (request.action == 'ChangeState') {
         isStarted = !isStarted;
-        chrome.runtime.sendMessage({ action: 'ChangeState', state: isStarted });
-
+        ptrThis.notifyStart();
+        
         var messageKey = isStarted ? 'activateExtension' : 'desactivateExtension';
+        
         if(isStarted)
-          startWatchTip();
+          ptrThis.startWatchTip();
         else
-          stopWatchTip();
+          ptrThis.stopWatchTip();
         
         var textMessage = chrome.i18n.getMessage(messageKey);
-        sendMessage(textMessage);
+        ptrThis.sendMessage(textMessage);
       }
     });
 
-  chrome.runtime.sendMessage({ action: 'ChangeState', state: isStarted });
-})();
+  this.notifyStart = function(forceStarted) {
+    if(forceStarted) {
+      isStarted=true;
+      this.startWatchTip();
+    }
+      
+    chrome.runtime.sendMessage({ action: 'ChangeState', state: isStarted });
+  };
+
+  var searchTipRegex = /(.*)\s+tipped\s+(\d+)\s+token/;
+
+  // Custom method (CB or C4)
+  // send message to the chat.
+  this.sendMessage = function (texte) {
+    var lines = texte.split('\n');
+    $.each(lines, function (index, line) {
+      var messageJSON = JSON.stringify({ 'm': line, 'c': '', 'f': '' });
+      $('#movie')[0].SendRoomMsg(messageJSON);
+    });
+  };
+
+  // Watch for tips.
+  this.startWatchTip = function () {
+    var soundTipper = this;
+    $('.chat-list').observe('added','.tipalert', function () {
+      var elementtext = $(this).text();
+      var match = searchTipRegex.exec(elementtext);
+      soundTipper.tipsended(match[1], match[2]);
+    });
+  };
+
+  this.stopWatchTip = function () {
+    $('.chat-list').disconnect();
+  };
+
+
+};
+
